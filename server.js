@@ -8,7 +8,7 @@ const basicAuth = require('basic-auth');
 
 // Configuration
 const config = {
-    port: 8080,
+    port: process.env.PORT || 8080,
     telegram: {
         token: process.env.TELEGRAM_TOKEN,
         adminChatId: process.env.ADMIN_CHAT_ID
@@ -35,6 +35,10 @@ class ChatServer {
         
         // Basic auth middleware
         this.app.use((req, res, next) => {
+            // Skip auth for WebSocket upgrade requests
+            if (req.headers.upgrade && req.headers.upgrade.toLowerCase() === 'websocket') {
+                return next();
+            }
             const user = basicAuth(req);
             const username = process.env.WEB_USER;
             const password = process.env.WEB_PASS;
