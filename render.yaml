@@ -16,8 +16,5 @@ services:
         sync: false
     autoDeploy: true
     envVarsFile: .env
-    disk:
-      name: public
-      mountPath: /public
     ports:
-      - 8080
+      - 8080 
