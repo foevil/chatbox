@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: chatbot-server
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: TELEGRAM_TOKEN
+        sync: false
+      - key: ADMIN_CHAT_ID
+        sync: false
+      - key: WEB_USER
+        sync: false
+      - key: WEB_PASS
+        sync: false
+    autoDeploy: true
+    envVarsFile: .env
+    disk:
+      name: public
+      mountPath: /public
+    ports:
+      - 8080
