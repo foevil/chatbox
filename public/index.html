@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Live Support Chat</title>
+    <title>FOChat</title>
     <style>
         * {
             margin: 0;
@@ -393,8 +393,10 @@
             
             connect() {
                 try {
-                    // Replace with your WebSocket server URL
-                    this.ws = new WebSocket('ws://localhost:8080');
+                    // Use current host and protocol for WebSocket
+                    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+                    const host = window.location.host;
+                    this.ws = new WebSocket(`${protocol}://${host}`);
                     
                     this.ws.onopen = () => {
                         console.log('Connected to chat server');
